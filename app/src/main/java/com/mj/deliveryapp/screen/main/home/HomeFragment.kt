@@ -8,7 +8,6 @@ class HomeFragment: BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     override val viewModel by viewModel<HomeViewModel>()
 
-
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
 
     override fun observeData() { }
