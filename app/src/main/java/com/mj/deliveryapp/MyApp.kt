@@ -3,7 +3,10 @@ package com.mj.deliveryapp
 import android.app.Application
 import android.content.Context
 import com.mj.deliveryapp.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class MyApp: Application() {
 
@@ -12,6 +15,8 @@ class MyApp: Application() {
         appContext = this
 
         startKoin {
+            androidLogger(Level.ERROR)
+            androidContext(this@MyApp)
             modules(appModule)
         }
     }
