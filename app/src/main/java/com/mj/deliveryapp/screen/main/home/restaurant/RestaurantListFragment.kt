@@ -3,7 +3,12 @@ package com.mj.deliveryapp.screen.main.home.restaurant
 import android.util.Log
 import androidx.core.os.bundleOf
 import com.mj.deliveryapp.databinding.FragmentRestaurantListBinding
+import com.mj.deliveryapp.model.restaurant.RestaurantModel
 import com.mj.deliveryapp.screen.base.BaseFragment
+import com.mj.deliveryapp.util.provider.ResourcesProvider
+import com.mj.deliveryapp.widget.adapter.ModelRecyclerAdapter
+import com.mj.deliveryapp.widget.adapter.listener.restaurant.RestaurantListListener
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -15,8 +20,22 @@ class RestaurantListFragment: BaseFragment<RestaurantListViewModel, FragmentRest
 
     override fun getViewBinding(): FragmentRestaurantListBinding = FragmentRestaurantListBinding.inflate(layoutInflater)
 
+    private val resourcesProvider by inject<ResourcesProvider>()
+
+    private val adapter by lazy {
+        ModelRecyclerAdapter<RestaurantModel, RestaurantListViewModel>(listOf(), viewModel, resourcesProvider, adapterListener = object : RestaurantListListener {
+            override fun onClickItem(model: RestaurantModel) {
+
+            }
+        })
+    }
+
+    override fun initViews() = with(binding) {
+        recyclerView.adapter = adapter
+    }
+
     override fun observeData() = viewModel.restaurantListLiveData.observe(viewLifecycleOwner) {
-        Log.e("restaurantList" , it.toString())
+        adapter.submitList(it)
     }
 
     companion object {

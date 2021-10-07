@@ -23,7 +23,6 @@ class DefaultRestaurantRepository(
                 restaurantImageUrl = "https://picsum.photos/200",
                 grade = (1 until 5).random() + ((0..10).random() / 10f),
                 reviewCount = (0 until 200).random(),
-                keywords = listOf("블라블라"),
                 deliveryTimeRange = Pair(0, 20),
                 deliveryTipRange = Pair(0, 2000)
             ),
@@ -35,7 +34,6 @@ class DefaultRestaurantRepository(
                 restaurantImageUrl = "https://picsum.photos/200",
                 grade = (1 until 5).random() + ((0..10).random() / 10f),
                 reviewCount = (0 until 200).random(),
-                keywords = listOf("블라블라"),
                 deliveryTimeRange = Pair(0, 20),
                 deliveryTipRange = Pair(0, 2000)
             ),
@@ -47,7 +45,6 @@ class DefaultRestaurantRepository(
                 restaurantImageUrl = "https://picsum.photos/200",
                 grade = (1 until 5).random() + ((0..10).random() / 10f),
                 reviewCount = (0 until 200).random(),
-                keywords = listOf("블라블라"),
                 deliveryTimeRange = Pair(0, 20),
                 deliveryTipRange = Pair(0, 2000)
             ),
@@ -59,7 +56,6 @@ class DefaultRestaurantRepository(
                 restaurantImageUrl = "https://picsum.photos/200",
                 grade = (1 until 5).random() + ((0..10).random() / 10f),
                 reviewCount = (0 until 200).random(),
-                keywords = listOf("블라블라"),
                 deliveryTimeRange = Pair(0, 20),
                 deliveryTipRange = Pair(0, 2000)
             ),
@@ -71,7 +67,6 @@ class DefaultRestaurantRepository(
                 restaurantImageUrl = "https://picsum.photos/200",
                 grade = (1 until 5).random() + ((0..10).random() / 10f),
                 reviewCount = (0 until 200).random(),
-                keywords = listOf("블라블라"),
                 deliveryTimeRange = Pair(0, 20),
                 deliveryTipRange = Pair(0, 2000)
             ),
@@ -83,7 +78,6 @@ class DefaultRestaurantRepository(
                 restaurantImageUrl = "https://picsum.photos/200",
                 grade = (1 until 5).random() + ((0..10).random() / 10f),
                 reviewCount = (0 until 200).random(),
-                keywords = listOf("블라블라"),
                 deliveryTimeRange = Pair(0, 20),
                 deliveryTipRange = Pair(0, 2000)
             ),
@@ -95,7 +89,6 @@ class DefaultRestaurantRepository(
                 restaurantImageUrl = "https://picsum.photos/200",
                 grade = (1 until 5).random() + ((0..10).random() / 10f),
                 reviewCount = (0 until 200).random(),
-                keywords = listOf("블라블라"),
                 deliveryTimeRange = Pair(0, 20),
                 deliveryTipRange = Pair(0, 2000)
             ),
@@ -107,7 +100,6 @@ class DefaultRestaurantRepository(
                 restaurantImageUrl = "https://picsum.photos/200",
                 grade = (1 until 5).random() + ((0..10).random() / 10f),
                 reviewCount = (0 until 200).random(),
-                keywords = listOf("블라블라"),
                 deliveryTimeRange = Pair(0, 20),
                 deliveryTipRange = Pair(0, 2000)
             ),
