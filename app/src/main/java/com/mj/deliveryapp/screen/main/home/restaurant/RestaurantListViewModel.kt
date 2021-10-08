@@ -2,7 +2,7 @@ package com.mj.deliveryapp.screen.main.home.restaurant
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.mj.deliveryapp.data.repository.RestaurantRepository
+import com.mj.deliveryapp.data.repository.restaurant.RestaurantRepository
 import com.mj.deliveryapp.model.restaurant.RestaurantModel
 import com.mj.deliveryapp.screen.base.BaseViewModel
 import kotlinx.coroutines.Job
