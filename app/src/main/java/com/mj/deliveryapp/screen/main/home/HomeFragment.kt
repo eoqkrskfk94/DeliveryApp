@@ -2,7 +2,9 @@ package com.mj.deliveryapp.screen.main.home
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -13,10 +15,12 @@ import androidx.core.view.isVisible
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mj.deliveryapp.R
 import com.mj.deliveryapp.data.entity.LocationLatLngEntity
+import com.mj.deliveryapp.data.entity.MapSearchInfoEntity
 import com.mj.deliveryapp.databinding.FragmentHomeBinding
 import com.mj.deliveryapp.screen.base.BaseFragment
 import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantCategory
 import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantListFragment
+import com.mj.deliveryapp.screen.mylocation.MyLocationActivity
 import com.mj.deliveryapp.widget.adapter.RestaurantListFragmentPagerAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -32,6 +36,17 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private lateinit var myLocationListener: MyLocationListener
 
+    private val changeLocationLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.getParcelableExtra<MapSearchInfoEntity>(HomeViewModel.MY_LOCATION_KEY)
+                    ?.let { myLocationInfo ->
+                        viewModel.loadReverseGeoInformation(myLocationInfo.locationLatLng)
+                    }
+            }
+
+        }
+
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
@@ -39,7 +54,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                         || (it.key == Manifest.permission.ACCESS_COARSE_LOCATION)
             }
 
-            if(responsePermissions.filter { it.value == true }.size == locationPermissions.size) {
+            if (responsePermissions.filter { it.value == true }.size == locationPermissions.size) {
                 setMyLocationListener()
             } else {
                 with(binding.locationTitleTextView) {
@@ -49,8 +64,16 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             }
         }
 
-    override fun initViews() {
-        super.initViews()
+    override fun initViews() = with(binding) {
+        locationTitleTextView.setOnClickListener {
+            viewModel.getMapSearchInfo()?.let { mapInfo ->
+                changeLocationLauncher.launch(
+                    MyLocationActivity.newIntent(
+                        requireContext(), mapInfo
+                    )
+                )
+            }
+        }
     }
 
     private fun initViewPager(locationLatLng: LocationLatLngEntity) = with(binding) {
@@ -75,7 +98,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     override fun observeData() = viewModel.homeStateLiveData.observe(viewLifecycleOwner) {
-        when(it) {
+        when (it) {
             is HomeState.Uninitialized -> {
                 getMyLocation()
             }
@@ -107,11 +130,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun getMyLocation() {
-        if(::locationManager.isInitialized.not()) {
-            locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (::locationManager.isInitialized.not()) {
+            locationManager =
+                requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         }
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        if(isGpsEnabled) {
+        if (isGpsEnabled) {
             locationPermissionLauncher.launch(locationPermissions)
         }
     }
@@ -120,7 +144,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     private fun setMyLocationListener() {
         val minTime = 1500L
         val minDistance = 100f
-        if(::myLocationListener.isInitialized.not()) {
+        if (::myLocationListener.isInitialized.not()) {
             myLocationListener = MyLocationListener()
         }
         with(locationManager) {
@@ -149,12 +173,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun removeLocationListener() {
-        if(::locationManager.isInitialized && ::myLocationListener.isInitialized) {
+        if (::locationManager.isInitialized && ::myLocationListener.isInitialized) {
             locationManager.removeUpdates(myLocationListener)
         }
     }
 
-    inner class MyLocationListener: LocationListener {
+    inner class MyLocationListener : LocationListener {
         override fun onLocationChanged(location: Location) {
             //binding.locationTitleTextView.text = "${location.latitude}, ${location.longitude}"
             viewModel.loadReverseGeoInformation(

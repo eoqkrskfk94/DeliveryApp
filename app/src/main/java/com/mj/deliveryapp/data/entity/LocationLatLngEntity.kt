@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LocationLatLngEntity(
-    override val id: Long = -1,
     val latitude: Double,
-    val longitude: Double
+    val longitude: Double,
+    override val id: Long = -1
 ): Entity, Parcelable
