@@ -81,19 +81,29 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
         if (::viewPagerAdapter.isInitialized.not()) {
             val restaurantListFragmentList = restaurantCategories.map {
-                RestaurantListFragment.newInstance(it)
+                RestaurantListFragment.newInstance(it, locationLatLng)
             }
             viewPagerAdapter = RestaurantListFragmentPagerAdapter(
                 this@HomeFragment,
-                restaurantListFragmentList
+                restaurantListFragmentList,
+                locationLatLng
             )
             viewPager.adapter = viewPagerAdapter
+
+            viewPager.offscreenPageLimit = restaurantCategories.size
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.setText(restaurantCategories[position].categoryNameId)
+            }.attach()
         }
 
-        viewPager.offscreenPageLimit = restaurantCategories.size
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.setText(restaurantCategories[position].categoryNameId)
-        }.attach()
+        if(locationLatLng != viewPagerAdapter.locationLatLngEntity) {
+            viewPagerAdapter.locationLatLngEntity = locationLatLng
+            viewPagerAdapter.fragmentList.forEach {
+                it.viewModel.setLocationLatLng(locationLatLng)
+            }
+        }
+
+
 
     }
 
@@ -114,6 +124,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                     tabLayout.isVisible = true
                     filterChipGroup.isVisible = true
                     locationTitleTextView.text = it.mapSearchInfoEntity.fullAddress
+
+                    if(it.isLocationSame.not()) {
+                        Toast.makeText(requireContext(), "위치가 맞는지 확인해주세요", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
                 initViewPager(it.mapSearchInfoEntity.locationLatLng)
 
