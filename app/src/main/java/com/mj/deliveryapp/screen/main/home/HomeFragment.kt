@@ -20,6 +20,7 @@ import com.mj.deliveryapp.databinding.FragmentHomeBinding
 import com.mj.deliveryapp.screen.base.BaseFragment
 import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantCategory
 import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantListFragment
+import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantOrder
 import com.mj.deliveryapp.screen.mylocation.MyLocationActivity
 import com.mj.deliveryapp.widget.adapter.RestaurantListFragmentPagerAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -74,12 +75,42 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 )
             }
         }
+        orderChipGroup.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId) {
+                R.id.chipDefault -> {
+                    chipInitialize.isGone = true
+                    changeRestaurantOrder(RestaurantOrder.DEAFALUT)
+                }
+                R.id.chipInitialize -> {
+                    chipDefault.isChecked = true
+                }
+                R.id.chipDeliveryTip -> {
+                    chipInitialize.isVisible = true
+                    changeRestaurantOrder(RestaurantOrder.LOW_DELIVERY_TIP)
+                }
+                R.id.chipFastDelivery -> {
+                    chipInitialize.isVisible = true
+                    changeRestaurantOrder(RestaurantOrder.FAST_DELIVERY)
+                }
+                R.id.chipTopRate -> {
+                    chipInitialize.isVisible = true
+                    changeRestaurantOrder(RestaurantOrder.TOP_LATE)
+                }
+            }
+        }
+    }
+
+    private fun changeRestaurantOrder(order: RestaurantOrder) {
+        viewPagerAdapter.fragmentList.forEach {
+            it.viewModel.setRestaurantOrder(order)
+        }
     }
 
     private fun initViewPager(locationLatLng: LocationLatLngEntity) = with(binding) {
         val restaurantCategories = RestaurantCategory.values()
 
         if (::viewPagerAdapter.isInitialized.not()) {
+            orderChipGroup.isVisible = true
             val restaurantListFragmentList = restaurantCategories.map {
                 RestaurantListFragment.newInstance(it, locationLatLng)
             }
@@ -122,7 +153,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                     locationLoading.isGone = true
                     viewPager.isVisible = true
                     tabLayout.isVisible = true
-                    filterChipGroup.isVisible = true
+                    orderChipGroup.isVisible = true
                     locationTitleTextView.text = it.mapSearchInfoEntity.fullAddress
 
                     if(it.isLocationSame.not()) {
