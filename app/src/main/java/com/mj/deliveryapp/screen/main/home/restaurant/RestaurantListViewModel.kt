@@ -45,6 +45,7 @@ class RestaurantListViewModel(
                 reviewCount = it.reviewCount,
                 deliveryTimeRange = it.deliveryTimeRange,
                 deliveryTipRange = it.deliveryTipRange,
+                restaurantTelNumber = it.restaurantTelNumber
             )
         }
     }

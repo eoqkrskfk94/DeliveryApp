@@ -3,6 +3,7 @@ package com.mj.deliveryapp.di
 
 import com.mj.deliveryapp.data.entity.LocationLatLngEntity
 import com.mj.deliveryapp.data.entity.MapSearchInfoEntity
+import com.mj.deliveryapp.data.entity.RestaurantEntity
 import com.mj.deliveryapp.data.repository.map.DefaultMapRepository
 import com.mj.deliveryapp.data.repository.map.MapRepository
 import com.mj.deliveryapp.data.repository.restaurant.DefaultRestaurantRepository
@@ -12,6 +13,7 @@ import com.mj.deliveryapp.data.repository.user.UserRepository
 import com.mj.deliveryapp.screen.main.home.HomeViewModel
 import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantCategory
 import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantListViewModel
+import com.mj.deliveryapp.screen.main.home.restaurant.detail.RestaurantDetailViewModel
 import com.mj.deliveryapp.screen.main.my.MyViewModel
 import com.mj.deliveryapp.screen.mylocation.MyLocationViewModel
 import com.mj.deliveryapp.util.provider.DefaultResourcesProvider
@@ -28,6 +30,7 @@ val appModule = module {
     viewModel { (restaurantCategory: RestaurantCategory, locationLatLng: LocationLatLngEntity) ->
         RestaurantListViewModel(restaurantCategory, locationLatLng, get()) }
     viewModel { (mapSearchInfoEntity: MapSearchInfoEntity) -> MyLocationViewModel(mapSearchInfoEntity, get(), get())}
+    viewModel { (restaurantEntity: RestaurantEntity) -> RestaurantDetailViewModel(restaurantEntity)}
 
     single<RestaurantRepository> { DefaultRestaurantRepository(get(), get(), get()) }
     single<MapRepository> { DefaultMapRepository(get(), get())}

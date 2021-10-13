@@ -13,6 +13,7 @@ class RestaurantDetailViewModel(
 
     val restaurantDetailStateLiveData = MutableLiveData<RestaurantDetailState>(RestaurantDetailState.Uninitialized)
 
+
     override fun fetchData(): Job = viewModelScope.launch {
         restaurantDetailStateLiveData.value = RestaurantDetailState.Success(
             restaurantEntity = restaurantEntity
