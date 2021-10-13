@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DeliveryApp">
         <activity
+            android:name=".screen.main.home.restaurant.detail.RestaurantDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".screen.mylocation.MyLocationActivity"
             android:exported="true" />
         <activity
@@ -30,7 +33,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map" />
-
     </application>
 
 </manifest>
