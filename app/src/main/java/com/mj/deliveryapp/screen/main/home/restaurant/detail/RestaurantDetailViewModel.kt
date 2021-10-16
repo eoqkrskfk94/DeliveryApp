@@ -3,6 +3,7 @@ package com.mj.deliveryapp.screen.main.home.restaurant.detail
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mj.deliveryapp.data.entity.RestaurantEntity
+import com.mj.deliveryapp.data.repository.restaurant.food.RestaurantFoodRepository
 import com.mj.deliveryapp.data.repository.user.UserRepository
 import com.mj.deliveryapp.screen.base.BaseViewModel
 import kotlinx.coroutines.Job
@@ -10,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class RestaurantDetailViewModel(
     private val restaurantEntity: RestaurantEntity,
+    private val restaurantFoodRepository: RestaurantFoodRepository,
     private val userRepository: UserRepository
 ): BaseViewModel() {
 
@@ -21,9 +23,12 @@ class RestaurantDetailViewModel(
             restaurantEntity = restaurantEntity
         )
         restaurantDetailStateLiveData.value = RestaurantDetailState.Loading
+
+        val foods = restaurantFoodRepository.getFoods(restaurantId = restaurantEntity.restaurantInfoId)
         val isLiked = userRepository.getUserLikedRestaurant(restaurantEntity.restaurantTitle) != null
         restaurantDetailStateLiveData.value = RestaurantDetailState.Success(
             restaurantEntity = restaurantEntity,
+            restaurantFoodList = foods,
             isLiked = isLiked
         )
     }
