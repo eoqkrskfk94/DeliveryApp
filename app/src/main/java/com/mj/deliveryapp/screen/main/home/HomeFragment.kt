@@ -23,6 +23,7 @@ import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantListFragment
 import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantOrder
 import com.mj.deliveryapp.screen.mylocation.MyLocationActivity
 import com.mj.deliveryapp.widget.adapter.RestaurantListFragmentPagerAdapter
+import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
@@ -134,45 +135,66 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             }
         }
 
-
-
     }
 
-    override fun observeData() = viewModel.homeStateLiveData.observe(viewLifecycleOwner) {
-        when (it) {
-            is HomeState.Uninitialized -> {
-                getMyLocation()
-            }
-            is HomeState.Loading -> {
-                binding.locationLoading.isVisible = true
-                binding.locationTitleTextView.text = getString(R.string.loading)
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkMyBasket()
+    }
 
-            }
-            is HomeState.Success -> {
-                binding.apply {
-                    locationLoading.isGone = true
-                    viewPager.isVisible = true
-                    tabLayout.isVisible = true
-                    orderChipGroup.isVisible = true
-                    locationTitleTextView.text = it.mapSearchInfoEntity.fullAddress
+    override fun observeData() {
 
-                    if(it.isLocationSame.not()) {
-                        Toast.makeText(requireContext(), "위치가 맞는지 확인해주세요", Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-                initViewPager(it.mapSearchInfoEntity.locationLatLng)
-
-            }
-            is HomeState.Error -> {
-                binding.locationLoading.isGone = true
-                binding.locationTitleTextView.text = getString(R.string.can_not_load_address_info)
-                binding.locationTitleTextView.setOnClickListener {
+        viewModel.homeStateLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is HomeState.Uninitialized -> {
                     getMyLocation()
                 }
-                Toast.makeText(requireContext(), it.messageId, Toast.LENGTH_SHORT).show()
+                is HomeState.Loading -> {
+                    binding.locationLoading.isVisible = true
+                    binding.locationTitleTextView.text = getString(R.string.loading)
+
+                }
+                is HomeState.Success -> {
+                    binding.apply {
+                        locationLoading.isGone = true
+                        viewPager.isVisible = true
+                        tabLayout.isVisible = true
+                        orderChipGroup.isVisible = true
+                        locationTitleTextView.text = it.mapSearchInfoEntity.fullAddress
+
+                        if(it.isLocationSame.not()) {
+                            Toast.makeText(requireContext(), "위치가 맞는지 확인해주세요", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                    initViewPager(it.mapSearchInfoEntity.locationLatLng)
+
+                }
+                is HomeState.Error -> {
+                    binding.locationLoading.isGone = true
+                    binding.locationTitleTextView.text = getString(R.string.can_not_load_address_info)
+                    binding.locationTitleTextView.setOnClickListener {
+                        getMyLocation()
+                    }
+                    Toast.makeText(requireContext(), it.messageId, Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
+        viewModel.foodMenuBasketLiveData.observe(viewLifecycleOwner) {
+            if(it.isNotEmpty()) {
+                binding.basketButtonContainer.isVisible = true
+                binding.basketCountTextView.text = getString(R.string.basket_count, it.size)
+                binding.basketButton.setOnClickListener {
+                    //TODO 주문
+                }
+            } else {
+                binding.basketButtonContainer.isGone = true
+                binding.basketButton.setOnClickListener(null)
+            }
+
+        }
+
     }
 
     private fun getMyLocation() {

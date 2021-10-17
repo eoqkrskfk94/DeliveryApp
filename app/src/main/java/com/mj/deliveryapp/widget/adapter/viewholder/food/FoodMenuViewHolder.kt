@@ -9,6 +9,7 @@ import com.mj.deliveryapp.model.restaurant.food.FoodModel
 import com.mj.deliveryapp.screen.base.BaseViewModel
 import com.mj.deliveryapp.util.provider.ResourcesProvider
 import com.mj.deliveryapp.widget.adapter.listener.AdapterListener
+import com.mj.deliveryapp.widget.adapter.listener.restaurant.FoodMenuListListener
 import com.mj.deliveryapp.widget.adapter.viewholder.ModelViewHolder
 
 class FoodMenuViewHolder(
@@ -32,6 +33,10 @@ class FoodMenuViewHolder(
     }
 
     override fun bindViews(model: FoodModel, adapterListener: AdapterListener) {
-
+        if(adapterListener is FoodMenuListListener) {
+            binding.root.setOnClickListener {
+                adapterListener.onClickItem(model)
+            }
+        }
     }
 }
