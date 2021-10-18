@@ -1,6 +1,7 @@
 package com.mj.deliveryapp.screen.main.home.restaurant.detail.review
 
 import com.mj.deliveryapp.data.entity.RestaurantReviewEntity
+import com.mj.deliveryapp.model.restaurant.review.RestaurantReviewModel
 
 sealed class RestaurantReviewState {
 
@@ -9,7 +10,7 @@ sealed class RestaurantReviewState {
     object Loading: RestaurantReviewState()
 
     data class Success(
-        val reviewList: List<RestaurantReviewEntity>
+        val reviewList: List<RestaurantReviewModel>
     ): RestaurantReviewState()
 
 
