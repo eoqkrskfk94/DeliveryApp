@@ -11,6 +11,8 @@ import com.mj.deliveryapp.data.repository.restaurant.DefaultRestaurantRepository
 import com.mj.deliveryapp.data.repository.restaurant.RestaurantRepository
 import com.mj.deliveryapp.data.repository.restaurant.food.DefaultRestaurantFoodRepository
 import com.mj.deliveryapp.data.repository.restaurant.food.RestaurantFoodRepository
+import com.mj.deliveryapp.data.repository.restaurant.review.DefaultRestaurantReviewRepository
+import com.mj.deliveryapp.data.repository.restaurant.review.RestaurantReviewRepository
 import com.mj.deliveryapp.data.repository.user.DefaultUserRepository
 import com.mj.deliveryapp.data.repository.user.UserRepository
 import com.mj.deliveryapp.screen.main.home.HomeViewModel
@@ -51,12 +53,13 @@ val appModule = module {
         )
     }
     viewModel { (restaurantId: Long, restaurantFoodList: List<RestaurantFoodEntity>) -> RestaurantMenuViewModel(restaurantId, restaurantFoodList, get()) }
-    viewModel { RestaurantReviewViewModel() }
+    viewModel { (restaurantTitle: String) -> RestaurantReviewViewModel(restaurantTitle, get()) }
 
     single<RestaurantRepository> { DefaultRestaurantRepository(get(), get(), get()) }
     single<MapRepository> { DefaultMapRepository(get(), get()) }
     single<UserRepository> { DefaultUserRepository(get(), get(), get()) }
     single<RestaurantFoodRepository> { DefaultRestaurantFoodRepository(get(), get(), get()) }
+    single<RestaurantReviewRepository> {DefaultRestaurantReviewRepository(get())}
 
     single { provideGsonConvertFactory() }
     single { buildOkHttpClient() }
