@@ -19,8 +19,6 @@ class DefaultRestaurantRepository(
         locationLatLngEntity: LocationLatLngEntity
     ): List<RestaurantEntity> = withContext(ioDispatcher) {
 
-        println(resourcesProvider.getString(restaurantCategory.categoryTypeId))
-
         val response = mapApiService.getSearchLocationAround(
             categories = resourcesProvider.getString(restaurantCategory.categoryTypeId),
             centerLat = locationLatLngEntity.latitude.toString(),
@@ -33,7 +31,6 @@ class DefaultRestaurantRepository(
         )
 
         if(response.isSuccessful) {
-            println(response.body()?.searchPoiInfo?.pois?.poi?.size)
             response.body()?.searchPoiInfo?.pois?.poi?.map { poi ->
                 RestaurantEntity(
                     restaurantTitle =poi.name ?: "no title",

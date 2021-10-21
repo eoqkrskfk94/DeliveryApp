@@ -5,6 +5,7 @@ import com.mj.deliveryapp.data.entity.LocationLatLngEntity
 import com.mj.deliveryapp.data.entity.MapSearchInfoEntity
 import com.mj.deliveryapp.data.entity.RestaurantEntity
 import com.mj.deliveryapp.data.entity.RestaurantFoodEntity
+import com.mj.deliveryapp.data.preference.AppPreferenceManager
 import com.mj.deliveryapp.data.repository.map.DefaultMapRepository
 import com.mj.deliveryapp.data.repository.map.MapRepository
 import com.mj.deliveryapp.data.repository.restaurant.DefaultRestaurantRepository
@@ -34,7 +35,7 @@ import org.koin.dsl.module
 val appModule = module {
 
     viewModel { HomeViewModel(get(), get(), get()) }
-    viewModel { MyViewModel() }
+    viewModel { MyViewModel(get()) }
     viewModel { (restaurantCategory: RestaurantCategory, locationLatLng: LocationLatLngEntity) ->
         RestaurantListViewModel(restaurantCategory, locationLatLng, get())
     }
@@ -75,6 +76,7 @@ val appModule = module {
     single { provideFoodMenuBasketDao(get()) }
 
     single<ResourcesProvider> { DefaultResourcesProvider(androidApplication()) }
+    single { AppPreferenceManager(androidApplication()) }
 
     single { Dispatchers.IO }
     single { Dispatchers.Main }

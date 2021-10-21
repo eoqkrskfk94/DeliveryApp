@@ -84,7 +84,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:constraint_referenced_ids="loginButton,loginTextView"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:visibility="visible"/>
 
     <com.google.android.gms.common.SignInButton

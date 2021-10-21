@@ -16,4 +16,5 @@ abstract class BaseViewModel: ViewModel() {
         this.stateBundle = stateBundle
     }
 
+
 }
