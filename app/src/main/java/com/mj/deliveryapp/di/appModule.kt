@@ -22,6 +22,7 @@ import com.mj.deliveryapp.screen.main.home.restaurant.RestaurantListViewModel
 import com.mj.deliveryapp.screen.main.home.restaurant.detail.RestaurantDetailViewModel
 import com.mj.deliveryapp.screen.main.home.restaurant.detail.menu.RestaurantMenuViewModel
 import com.mj.deliveryapp.screen.main.home.restaurant.detail.review.RestaurantReviewViewModel
+import com.mj.deliveryapp.screen.main.like.RestaurantLikeListViewModel
 import com.mj.deliveryapp.screen.main.my.MyViewModel
 import com.mj.deliveryapp.screen.mylocation.MyLocationViewModel
 import com.mj.deliveryapp.util.provider.DefaultResourcesProvider
@@ -55,6 +56,7 @@ val appModule = module {
     }
     viewModel { (restaurantId: Long, restaurantFoodList: List<RestaurantFoodEntity>) -> RestaurantMenuViewModel(restaurantId, restaurantFoodList, get()) }
     viewModel { (restaurantTitle: String) -> RestaurantReviewViewModel(restaurantTitle, get()) }
+    viewModel { RestaurantLikeListViewModel(get()) }
 
     single<RestaurantRepository> { DefaultRestaurantRepository(get(), get(), get()) }
     single<MapRepository> { DefaultMapRepository(get(), get()) }
