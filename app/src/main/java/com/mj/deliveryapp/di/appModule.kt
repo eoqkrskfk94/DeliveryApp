@@ -25,6 +25,8 @@ import com.mj.deliveryapp.screen.main.home.restaurant.detail.review.RestaurantRe
 import com.mj.deliveryapp.screen.main.like.RestaurantLikeListViewModel
 import com.mj.deliveryapp.screen.main.my.MyViewModel
 import com.mj.deliveryapp.screen.mylocation.MyLocationViewModel
+import com.mj.deliveryapp.screen.order.OrderMenuListViewModel
+import com.mj.deliveryapp.util.event.MenuChangeEventBus
 import com.mj.deliveryapp.util.provider.DefaultResourcesProvider
 import com.mj.deliveryapp.util.provider.ResourcesProvider
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +59,7 @@ val appModule = module {
     viewModel { (restaurantId: Long, restaurantFoodList: List<RestaurantFoodEntity>) -> RestaurantMenuViewModel(restaurantId, restaurantFoodList, get()) }
     viewModel { (restaurantTitle: String) -> RestaurantReviewViewModel(restaurantTitle, get()) }
     viewModel { RestaurantLikeListViewModel(get()) }
+    viewModel { OrderMenuListViewModel(get()) }
 
     single<RestaurantRepository> { DefaultRestaurantRepository(get(), get(), get()) }
     single<MapRepository> { DefaultMapRepository(get(), get()) }
@@ -83,5 +86,6 @@ val appModule = module {
     single { Dispatchers.IO }
     single { Dispatchers.Main }
 
+    single { MenuChangeEventBus() }
 
 }

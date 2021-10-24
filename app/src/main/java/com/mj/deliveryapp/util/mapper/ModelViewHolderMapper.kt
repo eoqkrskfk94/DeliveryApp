@@ -8,9 +8,11 @@ import com.mj.deliveryapp.model.Model
 import com.mj.deliveryapp.screen.base.BaseViewModel
 import com.mj.deliveryapp.screen.main.like.RestaurantLikeListViewModel
 import com.mj.deliveryapp.util.provider.ResourcesProvider
+import com.mj.deliveryapp.widget.adapter.listener.order.OrderMenuListListener
 import com.mj.deliveryapp.widget.adapter.viewholder.EmptyViewHolder
 import com.mj.deliveryapp.widget.adapter.viewholder.ModelViewHolder
 import com.mj.deliveryapp.widget.adapter.viewholder.food.FoodMenuViewHolder
+import com.mj.deliveryapp.widget.adapter.viewholder.order.OrderMenuViewHolder
 import com.mj.deliveryapp.widget.adapter.viewholder.restaurant.LikeRestaurantViewHolder
 import com.mj.deliveryapp.widget.adapter.viewholder.restaurant.RestaurantViewHolder
 import com.mj.deliveryapp.widget.adapter.viewholder.review.RestaurantReviewViewHolder
@@ -48,6 +50,11 @@ object ModelViewHolderMapper {
             )
             CellType.REVIEW_CELL -> RestaurantReviewViewHolder(
                 ViewholderRestaurantReviewBinding.inflate(inflater, parent, false),
+                viewModel,
+                resourcesProvider
+            )
+            CellType.ORDER_FOOD_CELL -> OrderMenuViewHolder(
+                ViewholderOrderMenuBinding.inflate(inflater, parent, false),
                 viewModel,
                 resourcesProvider
             )
