@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.mj.deliveryapp.R
 import com.mj.deliveryapp.data.repository.order.DefaultOrderRepository
+import com.mj.deliveryapp.data.repository.order.OrderRepository
 import com.mj.deliveryapp.data.repository.restaurant.food.RestaurantFoodRepository
 import com.mj.deliveryapp.model.CellType
 import com.mj.deliveryapp.model.restaurant.food.FoodModel
@@ -15,7 +16,7 @@ import java.lang.IllegalArgumentException
 
 class OrderMenuListViewModel(
     private val restaurantFoodRepository: RestaurantFoodRepository,
-    private val orderRepository: DefaultOrderRepository
+    private val orderRepository: OrderRepository
 ) : BaseViewModel() {
 
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
