@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "352723616823",
-    "firebase_url": "https://firstapp-d4bba.firebaseio.com",
-    "project_id": "firstapp-d4bba",
-    "storage_bucket": "firstapp-d4bba.appspot.com"
+    "project_number": "1057710268090",
+    "firebase_url": "https://locationtracking-b0d33.firebaseio.com",
+    "project_id": "locationtracking-b0d33",
+    "storage_bucket": "locationtracking-b0d33.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:352723616823:android:56c8763f098002ee7b6bb2",
+        "mobilesdk_app_id": "1:1057710268090:android:7b9de4a57176a8b2c92c83",
         "android_client_info": {
-          "package_name": "com.mj.aop_part5_chapter02"
+          "package_name": "com.example.realtime_gps"
         }
       },
       "oauth_client": [
         {
-          "client_id": "352723616823-nh5d1s8bl7usg8ksag6ec8a3va3gtbi1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.mj.aop_part5_chapter02",
-            "certificate_hash": "4f9383b8687525637a835bdfa6f3a0ea3087acfe"
-          }
-        },
-        {
-          "client_id": "352723616823-h3inpubdga8vp0h80svv00729vnuvftr.apps.googleusercontent.com",
+          "client_id": "1057710268090-b6mr7dfjtqu85enf0tpdkma2bofrst9e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDVZAIlmMzGef1lRKHkBeGq5Yo8i8y8THw"
+          "current_key": "AIzaSyDxz_SfYo4zCMZ8YJCgDZr2PPwVXGrpC2E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "352723616823-h3inpubdga8vp0h80svv00729vnuvftr.apps.googleusercontent.com",
+              "client_id": "1057710268090-b6mr7dfjtqu85enf0tpdkma2bofrst9e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -45,56 +37,35 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:352723616823:android:bb4f2433640fb3ef7b6bb2",
+        "mobilesdk_app_id": "1:1057710268090:android:bf37526b2e3567cac92c83",
         "android_client_info": {
           "package_name": "com.mj.deliveryapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "352723616823-h3inpubdga8vp0h80svv00729vnuvftr.apps.googleusercontent.com",
+          "client_id": "1057710268090-s1962lbmk8s4blugslm0patmld00p78k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mj.deliveryapp",
+            "certificate_hash": "4f9383b8687525637a835bdfa6f3a0ea3087acfe"
+          }
+        },
+        {
+          "client_id": "1057710268090-b6mr7dfjtqu85enf0tpdkma2bofrst9e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDVZAIlmMzGef1lRKHkBeGq5Yo8i8y8THw"
+          "current_key": "AIzaSyDxz_SfYo4zCMZ8YJCgDZr2PPwVXGrpC2E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "352723616823-h3inpubdga8vp0h80svv00729vnuvftr.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:352723616823:android:e0d09579e08ded867b6bb2",
-        "android_client_info": {
-          "package_name": "com.mj.subwayapp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "352723616823-h3inpubdga8vp0h80svv00729vnuvftr.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDVZAIlmMzGef1lRKHkBeGq5Yo8i8y8THw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "352723616823-h3inpubdga8vp0h80svv00729vnuvftr.apps.googleusercontent.com",
+              "client_id": "1057710268090-b6mr7dfjtqu85enf0tpdkma2bofrst9e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

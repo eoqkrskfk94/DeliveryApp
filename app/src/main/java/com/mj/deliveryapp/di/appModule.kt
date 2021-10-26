@@ -1,6 +1,8 @@
 package com.mj.deliveryapp.di
 
 
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.mj.deliveryapp.data.entity.LocationLatLngEntity
 import com.mj.deliveryapp.data.entity.MapSearchInfoEntity
 import com.mj.deliveryapp.data.entity.RestaurantEntity
@@ -8,6 +10,8 @@ import com.mj.deliveryapp.data.entity.RestaurantFoodEntity
 import com.mj.deliveryapp.data.preference.AppPreferenceManager
 import com.mj.deliveryapp.data.repository.map.DefaultMapRepository
 import com.mj.deliveryapp.data.repository.map.MapRepository
+import com.mj.deliveryapp.data.repository.order.DefaultOrderRepository
+import com.mj.deliveryapp.data.repository.order.OrderRepository
 import com.mj.deliveryapp.data.repository.restaurant.DefaultRestaurantRepository
 import com.mj.deliveryapp.data.repository.restaurant.RestaurantRepository
 import com.mj.deliveryapp.data.repository.restaurant.food.DefaultRestaurantFoodRepository
@@ -59,13 +63,14 @@ val appModule = module {
     viewModel { (restaurantId: Long, restaurantFoodList: List<RestaurantFoodEntity>) -> RestaurantMenuViewModel(restaurantId, restaurantFoodList, get()) }
     viewModel { (restaurantTitle: String) -> RestaurantReviewViewModel(restaurantTitle, get()) }
     viewModel { RestaurantLikeListViewModel(get()) }
-    viewModel { OrderMenuListViewModel(get()) }
+    viewModel { OrderMenuListViewModel(get(), get()) }
 
     single<RestaurantRepository> { DefaultRestaurantRepository(get(), get(), get()) }
     single<MapRepository> { DefaultMapRepository(get(), get()) }
     single<UserRepository> { DefaultUserRepository(get(), get(), get()) }
     single<RestaurantFoodRepository> { DefaultRestaurantFoodRepository(get(), get(), get()) }
     single<RestaurantReviewRepository> {DefaultRestaurantReviewRepository(get())}
+    single<OrderRepository> {DefaultOrderRepository(get(),get())}
 
     single { provideGsonConvertFactory() }
     single { buildOkHttpClient() }
@@ -87,5 +92,7 @@ val appModule = module {
     single { Dispatchers.Main }
 
     single { MenuChangeEventBus() }
+
+    single {Firebase.firestore }
 
 }
