@@ -10,7 +10,6 @@ import com.mj.deliveryapp.screen.base.BaseViewModel
 import com.mj.deliveryapp.util.provider.ResourcesProvider
 import com.mj.deliveryapp.widget.adapter.listener.AdapterListener
 import com.mj.deliveryapp.widget.adapter.listener.order.OrderMenuListListener
-import com.mj.deliveryapp.widget.adapter.listener.restaurant.FoodMenuListListener
 import com.mj.deliveryapp.widget.adapter.viewholder.ModelViewHolder
 
 class OrderMenuViewHolder(

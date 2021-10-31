@@ -7,7 +7,8 @@ enum class CellType {
     ORDER_FOOD_CELL,
     LIKE_RESTAURANT_CELL,
     FOOD_CELL,
-    REVIEW_CELL
+    REVIEW_CELL,
+    ORDER_CELL
 
 
 }

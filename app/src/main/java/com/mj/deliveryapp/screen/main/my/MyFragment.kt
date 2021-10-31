@@ -13,7 +13,12 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.mj.deliveryapp.R
 import com.mj.deliveryapp.databinding.FragmentMyBinding
 import com.mj.deliveryapp.extensions.load
+import com.mj.deliveryapp.model.order.OrderModel
 import com.mj.deliveryapp.screen.base.BaseFragment
+import com.mj.deliveryapp.util.provider.ResourcesProvider
+import com.mj.deliveryapp.widget.adapter.ModelRecyclerAdapter
+import com.mj.deliveryapp.widget.adapter.listener.AdapterListener
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlin.Exception
 
@@ -48,6 +53,12 @@ class MyFragment: BaseFragment<MyViewModel, FragmentMyBinding>() {
         }
     }
 
+    private val resourceProvider by inject<ResourcesProvider>()
+
+    private val adapter by lazy {
+        ModelRecyclerAdapter<OrderModel, MyViewModel>(listOf(), viewModel, resourceProvider, object: AdapterListener {})
+    }
+
     override fun initViews() = with(binding) {
         loginButton.setOnClickListener {
             signInGoogle()
@@ -56,6 +67,8 @@ class MyFragment: BaseFragment<MyViewModel, FragmentMyBinding>() {
             firebaseAuth.signOut()
             viewModel.signOut()
         }
+
+        recyclerView.adapter = adapter
     }
 
     private fun signInGoogle() {
@@ -98,7 +111,8 @@ class MyFragment: BaseFragment<MyViewModel, FragmentMyBinding>() {
         loginRequiredGroup.isGone = true
         profileImageView.load(state.profileImageUrl.toString(), 60f)
         userNameTextView.text = state.userName
-        Toast.makeText(requireContext(), state.orderList.toString(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), state.orderList.toString(), Toast.LENGTH_SHORT).show()
+        adapter.submitList(state.orderList)
     }
 
     private fun handleLoginState(state: MyState.Login) {

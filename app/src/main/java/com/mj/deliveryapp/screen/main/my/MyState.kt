@@ -3,6 +3,7 @@ package com.mj.deliveryapp.screen.main.my
 import android.net.Uri
 import androidx.annotation.StringRes
 import com.mj.deliveryapp.data.entity.OrderEntity
+import com.mj.deliveryapp.model.order.OrderModel
 
 sealed class MyState {
 
@@ -20,7 +21,7 @@ sealed class MyState {
         data class Registered(
             val userName: String,
             val profileImageUrl: Uri?,
-            val orderList: List<OrderEntity>
+            val orderList: List<OrderModel>
         ): Success()
 
         object NotRegistered: Success()

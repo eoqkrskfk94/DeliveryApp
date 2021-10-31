@@ -1,17 +1,12 @@
 package com.mj.deliveryapp.screen.main.home.restaurant.detail.review
 
-import android.widget.Toast
 import androidx.core.os.bundleOf
-import com.mj.deliveryapp.data.entity.RestaurantFoodEntity
 import com.mj.deliveryapp.databinding.FragmentListBinding
-import com.mj.deliveryapp.model.restaurant.food.FoodModel
 import com.mj.deliveryapp.model.restaurant.review.RestaurantReviewModel
 import com.mj.deliveryapp.screen.base.BaseFragment
-import com.mj.deliveryapp.screen.main.home.restaurant.detail.menu.RestaurantMenuViewModel
 import com.mj.deliveryapp.util.provider.ResourcesProvider
 import com.mj.deliveryapp.widget.adapter.ModelRecyclerAdapter
 import com.mj.deliveryapp.widget.adapter.listener.AdapterListener
-import com.mj.deliveryapp.widget.adapter.listener.restaurant.FoodMenuListListener
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf

@@ -12,7 +12,6 @@ import com.mj.deliveryapp.model.restaurant.food.FoodModel
 import com.mj.deliveryapp.screen.base.BaseViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 
 class OrderMenuListViewModel(
     private val restaurantFoodRepository: RestaurantFoodRepository,
