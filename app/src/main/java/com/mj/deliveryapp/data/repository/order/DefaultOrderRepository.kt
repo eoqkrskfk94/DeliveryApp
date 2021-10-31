@@ -17,13 +17,15 @@ class DefaultOrderRepository(
     override suspend fun orderMenu(
         userId: String,
         restaurantId: Long,
-        foodMenuList: List<RestaurantFoodEntity>
+        foodMenuList: List<RestaurantFoodEntity>,
+        restaurantTitle: String
     ): Result = withContext(ioDispatcher) {
         val result: Result
         val orderMenuData = hashMapOf(
             "restaurantId" to restaurantId,
             "userId" to userId,
-            "orderMenuList" to foodMenuList
+            "orderMenuList" to foodMenuList,
+            "restaurantTitle" to restaurantTitle
         )
 
         result = try {
@@ -50,16 +52,18 @@ class DefaultOrderRepository(
                     id = it.id,
                     userId = it.get("userId") as String,
                     restaurantId = it.get("restaurantId") as Long,
-                    foodMenuList = (it.get("orderMenuList") as ArrayList<Map<String, Any>>).map {food ->
-                    RestaurantFoodEntity(
-                        id = food["id"] as String,
-                        title = food["title"] as String,
-                        description = food["description"] as String,
-                        price = (food["price"] as Long).toInt(),
-                        imageUrl = food["imageUrl"] as String,
-                        restaurantId = food["restaurantId"] as Long
-                    )
-                }
+                    foodMenuList = (it.get("orderMenuList") as ArrayList<Map<String, Any>>).map { food ->
+                        RestaurantFoodEntity(
+                            id = food["id"] as String,
+                            title = food["title"] as String,
+                            description = food["description"] as String,
+                            price = (food["price"] as Long).toInt(),
+                            imageUrl = food["imageUrl"] as String,
+                            restaurantId = food["restaurantId"] as Long,
+                            restaurantTitle = it.get("restaurantTitle") as String
+                        )
+                    },
+                    restaurantTitle = it.get("restaurantTitle") as String
                 )
             })
         } catch (e: Exception) {
@@ -72,10 +76,10 @@ class DefaultOrderRepository(
 
         data class Success<T>(
             val data: T? = null
-        ): Result()
+        ) : Result()
 
         data class Error(
             val e: Throwable
-        ): Result()
+        ) : Result()
     }
 }

@@ -30,7 +30,8 @@ class RestaurantMenuViewModel(
                 price = it.price,
                 imageUrl = it.imageUrl,
                 restaurantId = restaurantId,
-                foodId = it.id
+                foodId = it.id,
+                restaurantTitle = it.restaurantTitle
             )
 
         }
