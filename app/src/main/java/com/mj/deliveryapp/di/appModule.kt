@@ -1,8 +1,10 @@
 package com.mj.deliveryapp.di
 
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.mj.deliveryapp.data.entity.LocationLatLngEntity
 import com.mj.deliveryapp.data.entity.MapSearchInfoEntity
 import com.mj.deliveryapp.data.entity.RestaurantEntity
@@ -35,8 +37,8 @@ import com.mj.deliveryapp.util.provider.DefaultResourcesProvider
 import com.mj.deliveryapp.util.provider.ResourcesProvider
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidApplication
-import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
@@ -93,6 +95,8 @@ val appModule = module {
 
     single { MenuChangeEventBus() }
 
+    single {FirebaseStorage.getInstance() }
     single {Firebase.firestore }
+    single {FirebaseAuth.getInstance() }
 
 }
